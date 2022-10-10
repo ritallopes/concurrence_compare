@@ -1,26 +1,21 @@
 import threading
-import random
 import requests
 import time
-url = "https://roll-dice1.p.rapidapi.com/rollDice"
-
-headers = {
-    "X-RapidAPI-Key": "658fe435e7mshcba5a8d6ebae09bp1a20ccjsnd5e3ca64059a",
-    "X-RapidAPI-Host": "roll-dice1.p.rapidapi.com"
-}
+import random
+url = "https://dummyjson.com/products/"
 
 tempos = {1: [], 10: [], 50: [],
-          100: [], 500: [], 1000: [], 5000: []}
+          100: [], 500: [], 750: [], 1000: []}
 
 
 def req_d(i):
-    response = requests.request("GET", url, headers=headers)
+    response = requests.request("GET", url+str(random.randint(1, 100)))
     resp = response.json()
     print("Saida " + str(i) + ": " +
-          str(resp['data']['Dice']), end=", ")
+          str(resp['id']), end=", ")
 
 
-cenarios = [1, 10, 50, 100, 500, 1000, 5000]
+cenarios = [1, 10, 50, 100, 500, 750, 1000]
 
 paradaReq = 0
 tempoParada = 0
@@ -33,7 +28,7 @@ for cenario in cenarios:
         threads = []
         for i in range(cenario):
             paradaReq += 1
-            if (paradaReq == 200):
+            if (paradaReq == 100):
                 ini = time.time_ns()
                 time.sleep(60)
                 paradaReq = 0
